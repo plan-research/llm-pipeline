@@ -4,11 +4,11 @@ import org.jetbrains.plan.runner.context.AbstractTask
 import org.jetbrains.plan.runner.context.Context
 
 /**
- * TaskPreprocessor is an interface that defines the contract for preprocessing tasks.
- * It provides the ability to apply a preprocessing operation on a task solution.
+ * TaskPreprocessor is an interface that defines the contract for task preprocessing operations.
  *
- * This action will apply before the running of the metric collection.
- * This allows filtering solutions or gathering generated parts.
+ * @param C a context for the experiment, that could be provided to the preprocessor during the setup
+ * @param T a task, that is used in the experiment, extends [AbstractTask]
+ * @param I solutions (or information) that is provided for each task by [org.jetbrains.plan.runner.context.DatasetLoader]
  */
 interface TaskPreprocessor<C : Context, T : AbstractTask, I> {
     /**
@@ -20,10 +20,11 @@ interface TaskPreprocessor<C : Context, T : AbstractTask, I> {
      */
     fun apply(task: T, taskSolutions: List<I>): List<I>
 
+
     /**
-     * Sets up the [TaskPreprocessor] with the provided [dataset].
+     * Sets up the TaskPreprocessor with the provided context.
      *
-     * @param dataset The dataset provider that contains the tasks and other necessary information.
+     * @param context The context for the experiment.
      */
     fun setup(context: C) = Unit
 }

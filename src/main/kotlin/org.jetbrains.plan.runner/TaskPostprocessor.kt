@@ -11,6 +11,10 @@ import org.jetbrains.plan.runner.storage.TypeSafeStorage
  * It provides the ability to apply a preprocessing operation on a task solution.
  *
  * This action will apply after the running of the metric collection.
+ * @param C a context for the experiment, that could be provided to the post-processor during the setup
+ * @param T a task, that is used in the experiment
+ * @param I solutions (or information) that is provided for each task by [org.jetbrains.plan.runner.context.DatasetLoader]
+ * @param D a dataset loader that provided during the setup
  */
 interface TaskPostprocessor<C: Context, T: AbstractTask, I, D: DatasetLoader<T, I>> {
     /**
@@ -26,5 +30,11 @@ interface TaskPostprocessor<C: Context, T: AbstractTask, I, D: DatasetLoader<T, 
      */
     fun postAction() = Unit
 
+    /**
+     * Sets up the TaskPostprocessor with the provided context and dataset loader.
+     *
+     * @param context The context for the experiment.
+     * @param dataset The dataset loader used in the experiment.
+     */
     fun setup(context: C, dataset: D) = Unit
 }

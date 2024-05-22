@@ -15,6 +15,7 @@ internal class TypeSafeStorageImpl : MutableTypeSafeStorage {
 
     private val underlyingMap: MutableMap<UnderlyingKey, Any?> = mutableMapOf()
 
+    // For the sake of type aligned (I do not want to store Map<Any, Any?>)
     private class UnderlyingKey(val key: TypeSafeStorage.Key<*>) {
         override fun hashCode(): Int = key.hashCode()
         override fun equals(other: Any?): Boolean {
