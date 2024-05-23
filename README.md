@@ -4,18 +4,18 @@ A pipeline for processing datasets to extract metrics
 
 ## Build/Publishing
 
-All build and publishing operations are resolved via Gradle. To build & publish the library use
-
-```shell
-./gradlew publishToMavenLocal
-```
-
-This command will publish the pipeline into the maven local.
-
-To import the pipeline into your project use
-
+To import the library, add PLAN maven repository:
 ```kotlin
-implementation("org.jetbrains.plan:experiment-runner:0.0.1")
+repositories {
+    // ...
+    maven {
+        url = uri("https://plan-maven.apal-research.com/")
+    }
+}
+```
+And import the library:
+```kotlin
+implementation("org.jetbrains.plan:experiment-runner:0.0.4")
 ```
 
 ## Concepts
