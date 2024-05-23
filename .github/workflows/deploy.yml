@@ -1,0 +1,24 @@
+name: Publish the library in Maven and make a release
+on:
+  push:
+    tags:
+      - 'v**'
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: Publish version to Maven
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }} # Workaround, since the permissions are hard
+          GITHUB_USERNAME: khbminus
+        run:  ./gradlew publish
+          

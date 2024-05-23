@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.jetbrains.plan"
-version = "0.0.1"
+version = "0.0.2"
 
 repositories {
     mavenCentral()
@@ -19,9 +19,20 @@ publishing {
         create<MavenPublication>("runner") {
             groupId = "org.jetbrains.plan"
             artifactId = "experiment-runner"
-            version = "0.0.1"
+            version = project.version.toString()
 
             from(components["java"])
+        }
+    }
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/plan-research/kotlin-maven")
+            credentials {
+                username = project.findProperty("gpr.user")?.toString() ?: System.getenv("GITHUB_USERNAME")
+                password = project.findProperty("gpr.token")?.toString() ?: System.getenv("GITHUB_TOKEN")
+                println(password?.length)
+                println(username)
+            }
         }
     }
 }
