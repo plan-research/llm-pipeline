@@ -4,13 +4,14 @@ plugins {
 }
 
 group = "org.jetbrains.plan"
-version = "0.0.4"
+version = "0.0.5"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
     testImplementation(kotlin("test"))
 }
 
@@ -30,8 +31,6 @@ publishing {
             credentials {
                 username = project.findProperty("gpr.user")?.toString() ?: System.getenv("GITHUB_USERNAME")
                 password = project.findProperty("gpr.token")?.toString() ?: System.getenv("GITHUB_TOKEN")
-                println(password?.length)
-                println(username)
             }
         }
     }

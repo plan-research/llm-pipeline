@@ -1,5 +1,8 @@
 package org.jetbrains.plan.runner.storage
 
+import io.github.oshai.kotlinlogging.KotlinLogging
+
+private val logger = KotlinLogging.logger { }
 
 internal class TypeSafeStorageImpl : MutableTypeSafeStorage {
     override fun <E> get(key: TypeSafeStorage.Key<E>): E? {
@@ -10,6 +13,7 @@ internal class TypeSafeStorageImpl : MutableTypeSafeStorage {
 
     override fun <E> set(key: TypeSafeStorage.Key<E>, value: E) {
         val modifiedKey = UnderlyingKey(key)
+        logger.debug { "setting $key=$value" }
         underlyingMap[modifiedKey] = value
     }
 
